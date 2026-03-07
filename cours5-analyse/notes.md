@@ -4,15 +4,33 @@
 ### Sans lancer le projet, essayez de répondre aux questions suivantes, et notez vos réponses dans le fichier notes.md :
 
 ### Trouver le ou les langages utilisé
-Les langages utilisé sont : PHP, CSS/SCSS (style), SQL (BD), JavaScript, json/yml (configuration)
+Les langages utilisé sont : 
+- **PHP** : langage principal du backend
+- **JavaScript** : interactions frontend (DOM manipulation, etc.)
+- **CSS/SCSS** : stylisation des pages
+- **SQL** : base de données
+- **YAML/JSON** : fichiers de configuration (docker-compose.yml, composer.json)
 
 ### Trouver le ou les framework principaux utilisé
-Les framework utilisé sont : Slim 2, Twig et Illuminate
+Les framework utilisé sont :
+- **Slim 2** : micro-framework PHP pour le routage et les requêtes HTTP
+- **Twig 1.0** : moteur de templates PHP
+- **Illuminate Database 4.2.9** : couche ORM/Query Builder (Laravel Eloquent)
 
 ### Trouvez le but général de l'application
-
+L'application Racoin est une **plateforme de petites annonces** (site de ventes/achats d'occasion). Elle permet aux utilisateurs (annonceurs) de :
+- Publier des annonces avec photos
+- Consulter les annonces par catégories et départements
+- Rechercher des articles
+- Gérer leurs profils d'annonceurs
 
 ### Faire une première estimation de ce qu'il faudrait pour faire démarrer l'application en l'état
+Pour faire démarrer l'application, il faudrait :
+1. **Composer install** pour les dépendances
+2. **Docker compose** pour la base de données et le serveur web 
+3. Configurer la connexion BD dans `config/config.ini`
+4. Importer le schéma SQL et les données de test
+5. Compiler le scss
 
 ## 2. Prise en main & démarrage (30min)
 ### Faire marcher l'application en local
