@@ -25,5 +25,5 @@
 Depuis le dossier `racoin-main` :
 
 ```bash
+composer install --no-security-blocking
 docker-compose up -d
-docker-compose exec php composer install

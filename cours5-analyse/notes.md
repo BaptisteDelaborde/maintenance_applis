@@ -67,13 +67,53 @@ docker-compose exec php composer install
 
 ## 3. Préparer la maintenance (30min)
 
-### Lister les langages et frameworks dont la version est obsolète
+### Langages et frameworks obsolètes
 
-### Lister les dépendances non maintenues / obsolètes
+- **PHP 7.4** 
+- **Slim 2.x** 
+- **Twig 1.0** 
+- **Illuminate Database 4.2.9** 
 
-### Notez dans une section "Todo list" d'autres améliorations que vous avez en tête pour la maintenance et l'évolution de l'application. Gardez en tête le préambule ci dessus.
+### Dépendances non maintenues / obsolètes
 
-### Pour chaque idée, essayer de noter sur 10 le temps de la modification, et l'impact de la modification (2 notes donc) afin de prioriser les évolutions futures.
+**slim/slim** : 2.6.3 
+- Dernière version: 4.12.0
+- Problème: Aucune correction de sécurité, API obsolète
+
+**twig/twig** : 1.48.2
+- Dernière version: 3.8.1
+- Problème: Vulnérabilités non patchées, syntaxe ancienne
+
+**illuminate/database** : 4.2.9 
+- Dernière version: 10.45.0
+- Problème: 9 versions majeures de retard, bugs critiques
+
+### Todo list - Améliorations pour la maintenance
+
+**Indispensable (à faire dès que possible)**
+
+1. **Hasher les mots de passe**
+   - Temps: 4/10
+   - Impact: 9/10
+   - Les mots de passe sont en texte clair dans la BD. Utiliser `password_hash()` avec bcrypt.
+
+**Utile à faire**
+2. **Ajouter des tests unitaires (PHPUnit)**
+   - Temps: 7/10
+   - Impact: 8/10
+   - Zéro test actuellement. Prévenir les régressions lors des mises à jour.
+
+3. **Ajouter analyse statique (PHPStan)**
+   - Temps: 3/10
+   - Impact: 6/10
+   - Détecter les erreurs de type et bugs logiques automatiquement.
+
+**Pas important (à faire que si il reste du temps)**
+4. **Compiler les SCSS (Webpack/Vite)**
+   - Temps: 5/10
+   - Impact: 3/10
+   - Automatiser la compilation SCSS et minification des assets.
+
 
 ## 4. Réaliser la maintenance (1h30)
 ### Mettre à jour les versions de langages et de framework
