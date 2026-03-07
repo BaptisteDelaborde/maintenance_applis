@@ -117,7 +117,29 @@ docker-compose exec php composer install
 
 ## 4. Réaliser la maintenance (1h30)
 ### Mettre à jour les versions de langages et de framework
+
+Maintenance réalisée de manière progressive pour limiter les régressions :
+
+- Mise à jour de PHP dans Docker :
+   - `php:7.4` -> `php:8.2-cli`
+- Conservation de l’architecture actuelle (Slim 2) 
+
 ### Mettre à jour les dépendances obsolètes
+
+Mise à jour des dépendances vers les versions les plus récentes compatibles avec le code existant :
+
+- `slim/slim` : `2.*` -> `^2.6.3`
+- `twig/twig` : `~1.0` -> `^1.44`
+- `illuminate/database` : `4.2.9` -> `^4.2.17`
+- Ajout de contrainte PHP dans composer :
+   - `"php": "^8.1 || ^8.2"`
+
+Commandes exécutées :
+
+```bash
+composer update 
+docker-compose up -d
+```
 
 ## 5. Étape (bonus) - effectuer de l'amélioration continue
 
