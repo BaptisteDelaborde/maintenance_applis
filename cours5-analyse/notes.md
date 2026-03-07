@@ -140,9 +140,3 @@ Commandes exécutées :
 composer update 
 docker-compose up -d
 ```
-
-## 5. Étape (bonus) - effectuer de l'amélioration continue
-
-### Appliquer certaines des améliorations que vous aviez envisagées en étape 3
-
-### Faire une liste des améliorations que vous avez faites, avec une explication rapide de pourquoi vous avez séléctionné celle(s)-ci parmi vos idées initiales._
