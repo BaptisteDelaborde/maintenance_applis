@@ -1,10 +1,36 @@
-version: '3.8'
+version: "3.8"
+
 services:
-  php: 
-    build: './docker/php'
-    user: ${UID:-1000}:${GID:-1000}
+  php:
+    build: ./docker/php
+    user: "${UID}:${GID}"
     ports:
-      - ${PHP_PORT:-8080}:80
+      - "${PHP_PORT}:80"
     volumes:
       - ./:/var/www/html
     command: php -S 0.0.0.0:80 -t .
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  db_data:

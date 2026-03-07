@@ -33,8 +33,37 @@ Pour faire démarrer l'application, il faudrait :
 5. Compiler le scss
 
 ## 2. Prise en main & démarrage (30min)
+
 ### Faire marcher l'application en local
-### Créer un process et un mode d'emploi pour faire marcher l'application (un docker-compose et un readme, par exemple)
+
+**Étapes réalisées:**
+
+1. Créé le fichier `config/config.ini` avec les paramètres de connexion à MySQL
+2. Amélioré le `docker-compose.yml` pour ajouter un service MySQL 8.0
+3. Configuré les volumes pour que le schéma SQL s'initialise automatiquement
+4. Ajouté un health check pour MySQL
+
+**Pour démarrer l'application :**
+```bash
+docker-compose up -d
+docker-compose exec php composer install
+# Ensuite accédez à http://localhost:8080
+```
+
+### Créer un process et un mode d'emploi pour faire marcher l'application
+
+**Fichiers créés/modifiés:**
+
+1. **README.md** - Documentation complète
+2. **docker-compose.yml** - Configuration Docker améliorée:
+   - Service PHP 7.4 avec accès au code local
+   - Service MySQL 8.0 avec initialisation automatique
+   - Configuration de la base de données (racoin/rootpassword)
+   - Health checks pour MySQL
+3. **config/config.ini** - Fichier de configuration:
+   - Paramètres de connexion à la base de données MySQL
+   - Configuration pour Illuminate Database
+4. **.env** - Fichier d'exemple pour variables d'environnement
 
 ## 3. Préparer la maintenance (30min)
 

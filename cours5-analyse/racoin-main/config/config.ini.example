@@ -1,0 +1,9 @@
+[database]
+driver = mysql
+host = db
+database = racoin
+username = root
+password = rootpassword
+port = 3306
+charset = utf8
+
