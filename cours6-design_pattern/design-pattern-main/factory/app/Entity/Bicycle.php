@@ -2,20 +2,26 @@
 
 namespace App\Entity;
 
-class Bicycle {
-    private $costPerKm;
-    private $fuelType;
+use App\Vehicle;
+// Exemple du cours Factory
+class Bicycle implements Vehicle
+{
+    private float $costPerKm;
+    private string $fuelType;
 
-    public function __construct($costPerKm, $fuelType) {
+    public function __construct(float $costPerKm, string $fuelType)
+    {
         $this->costPerKm = $costPerKm;
         $this->fuelType = $fuelType;
     }
 
-    public function getCostPerKm() {
+    public function getCostPerKm(): float
+    {
         return $this->costPerKm;
     }
 
-    public function getFuelType() {
+    public function getFuelType(): string
+    {
         return $this->fuelType;
     }
 }

@@ -1,4 +1,12 @@
 <?php
-require('../vendor/autoload.php');
-die('ici, vous pouvez tester votre factory !');
-# Essayez d'utiliser votre factory ici
+require __DIR__ . '/../vendor/autoload.php';
+
+$factory = new App\VehicleFactory();
+
+$bicycle = $factory->create('bicycle');
+$car = $factory->create('car');
+$truck = $factory->create('truck');
+
+echo "Vélo : " . $bicycle->getFuelType() . ", " . $bicycle->getCostPerKm() . " €/km\n\n";
+echo "Voiture : " . $car->getFuelType() . ", " . $car->getCostPerKm() . " €/km\n\n";
+echo "Camion : " . $truck->getFuelType() . ", " . $truck->getCostPerKm() . " €/km\n\n";

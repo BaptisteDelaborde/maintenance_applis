@@ -29,8 +29,8 @@ Grâce au `decorator`, créer la possibilité d'ajouter une carte Graphique ou u
 Une fois ces décorators créés, completer les tests et les executer 
 
 #### FACTORY
-- [ ] Vous avez 3 type de véhicule disponible. Essayez de créer une interface commune, puis de créer une factory pour obtenir l'un des 3 moyens de transports.
-- [ ] Dans un second temps créer une 2e methode dans cette Factory pour obtenir un vehicule en fonction de la distance et du poids transporté (si <20km, c'est le velo, sinon c'est la voiture. Si il y a plus de 20kg ça sera la voiture et si plus de 200kg le camion.)
+- [x] Vous avez 3 type de véhicule disponible. Essayez de créer une interface commune, puis de créer une factory pour obtenir l'un des 3 moyens de transports.
+- [x] Dans un second temps créer une 2e methode dans cette Factory pour obtenir un vehicule en fonction de la distance et du poids transporté (si <20km, c'est le velo, sinon c'est la voiture. Si il y a plus de 20kg ça sera la voiture et si plus de 200kg le camion.)
 
 #### OBSERVER 
 **Pas d'accès via localhost:8080 pour cet exercice. Pour lancer les tests : faire un "docker compose run --rm php composer run-script phpunit".**
