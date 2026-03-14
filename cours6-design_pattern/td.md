@@ -11,10 +11,10 @@ Chaque projet sera alors accessible via localhost:8080 (sauf exceptions indiqué
 
 #### BUILDER
 Créer un Query Builder pour construire des requêtes SQL de manière fluide et progressive : 
-- [ ] Créez une interface QueryBuilder qui représente le Query Builder. Cette classe devra avoir des méthodes pour chaque partie d'une requête de base de donnée, telles que select(), from(), where(), etc.
-- [ ] Créez une classe MySqlQueryBuilder qui implement QueryBuilder avec les methodes corespondant à MySql.
-- [ ] Implémentez ces méthodes pour permettre aux utilisateurs de spécifier les parties de la requête de manière progressive.
-- [ ] Testez votre implémentation en créant plusieurs requêtes SQL à l'aide du Query Builder et en vérifiant qu'elles sont construites correctement, et en les affichante sous forme de texte.
+- [x] Créez une interface QueryBuilder qui représente le Query Builder. Cette classe devra avoir des méthodes pour chaque partie d'une requête de base de donnée, telles que select(), from(), where(), etc.
+- [x] Créez une classe MySqlQueryBuilder qui implement QueryBuilder avec les methodes corespondant à MySql.
+- [x] Implémentez ces méthodes pour permettre aux utilisateurs de spécifier les parties de la requête de manière progressive.
+- [x] Testez votre implémentation en créant plusieurs requêtes SQL à l'aide du Query Builder et en vérifiant qu'elles sont construites correctement, et en les affichante sous forme de texte.
 
 ---
 
