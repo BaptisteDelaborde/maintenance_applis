@@ -42,7 +42,7 @@ Vous avez deux entités, des Utilisateur (`User`) et des groupe de musique (`Mus
 **note:** utilisez les interface [SplObserver](https://www.php.net/manual/fr/class.splobserver.php) et [SplSubject](https://www.php.net/manual/fr/class.splsubject.php), et ne pas modifier la classe de test.
 
 #### SINGLETON
-- [ ] Créez un classe Config qui suit le design pattern Singleton. Cette classe aura un attribut `settings` privé et une fonction `get()` qui permet de récuperer la valeur d'une clé.
+- [x] Créez un classe Config qui suit le design pattern Singleton. Cette classe aura un attribut `settings` privé et une fonction `get()` qui permet de récuperer la valeur d'une clé.
 
 ---
 

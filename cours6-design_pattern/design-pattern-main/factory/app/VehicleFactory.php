@@ -26,6 +26,6 @@ class VehicleFactory
         if ($weightKg > 20 || $distanceKm >= 20) {
             return new Car(0.15, 'essence');
         }
-        return new Bicycle(0.05, 'muscle');
+        return new Bicycle(0.00, 'muscle');
     }
 }

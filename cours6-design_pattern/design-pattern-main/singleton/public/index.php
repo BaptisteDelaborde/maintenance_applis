@@ -1,7 +1,8 @@
 <?php
-require('../vendor/autoload.php');
+require __DIR__ . '/../vendor/autoload.php';
 
-die('ici vous pouvez tester votre singleton !');
-# TODO: Récuperer une instance de Config
-# Afficher une valeur contenu dans config.php
-# Récupérer une seconde instance de Config et vérifié que les deux instances sont identiques
+$config = App\Config::getInstance();
+echo 'debug = ' . ($config->get('debug') ? 'true' : 'false') . "\n";
+
+$config2 = App\Config::getInstance();
+echo 'Même instance : ' . ($config === $config2 ? 'oui' : 'non') . "\n";
