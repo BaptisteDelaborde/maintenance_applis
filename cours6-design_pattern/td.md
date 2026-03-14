@@ -26,7 +26,7 @@ Grâce au `decorator`, créer la possibilité d'ajouter une carte Graphique ou u
 - [x] Créez des classes décoratrices (par exemple, GPUDecorator et OLEDScreenDecorator) qui implémentent également l'interface Computer et prennent un objet Computer en paramètre dans leur constructeur. Ces classes doivent ajouter des fonctionnalités supplémentaires à l'ordinateur de base.
 - [x] Implémentez les méthodes getDescription() dans les classes décoratrices pour inclure les descriptions supplémentaires des fonctionnalités ajoutées.
 - [x] Testez votre implémentation en créant plusieurs objets Computer avec différentes combinaisons de décorateurs et en vérifiant que les descriptions sont correctes.
-Une fois ces décorators créés, completer les tests et les executer ✅ 
+Une fois ces décorators créés, completer les tests et les executer 
 
 #### FACTORY
 - [ ] Vous avez 3 type de véhicule disponible. Essayez de créer une interface commune, puis de créer une factory pour obtenir l'un des 3 moyens de transports.
