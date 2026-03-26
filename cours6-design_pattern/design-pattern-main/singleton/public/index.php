@@ -1,7 +1,8 @@
 <?php
-require('../vendor/autoload.php');
+require __DIR__ . '/../vendor/autoload.php';
 
+$config = App\Config::getInstance();
+echo 'debug = ' . ($config->get('debug') ? 'true' : 'false') . "\n";
 
-# TODO: Récuperer une instance de Config
-# Afficher une valeur contenu dans config.php
-# Récupérer une seconde instance de Config et vérifié que les deux instances sont identiques
+$config2 = App\Config::getInstance();
+echo 'Même instance : ' . ($config === $config2 ? 'oui' : 'non') . "\n";
