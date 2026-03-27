@@ -1,47 +1,59 @@
 <?php
 
-require 'vendor/autoload.php';
+namespace controller;
 
-
-use model\Annonceur;
-use model\Photo;
 use model\Annonce;
-use Slim\Environment;
+use model\Photo;
+use model\Annonceur;
 
-class index {
-    /** @var array<Annonce> */
-    protected array $annonce = [];
+class index
+{
+    protected $annonce = array();
 
-    public function displayAllAnnonce(Environment $twig, array $menu, string $chemin, array $cat): void {
+    public function displayAllAnnonce($twig, $menu, $chemin, $cat)
+    {
         $template = $twig->load("index.html.twig");
-        $menu = [['href' => $chemin, 'text' => 'Acceuil']];
+        $menu     = array(
+            array(
+                'href' => $chemin,
+                'text' => 'Acceuil'
+            ),
+        );
 
         $this->getAll($chemin);
-        echo $template->render([
+        echo $template->render(array(
             "breadcrumb" => $menu,
             "chemin"     => $chemin,
             "categories" => $cat,
             "annonces"   => $this->annonce
-        ]);
+        ));
     }
 
-    public function getAll(string $chemin): void {
-        $tmp = Annonce::with("Annonceur")->orderBy('id_annonce', 'desc')->take(12)->get();
-
+    public function getAll($chemin)
+    {
+        $tmp     = Annonce::with("Annonceur")->orderBy('id_annonce', 'desc')->take(12)->get();
+        $annonce = [];
         foreach ($tmp as $t) {
             $t->nb_photo = Photo::where("id_annonce", "=", $t->id_annonce)->count();
-            $t->url_photo = ($t->nb_photo > 0)
-                ? Photo::select("url_photo")->where("id_annonce", "=", $t->id_annonce)->first()?->url_photo
-                : '/img/noimg.png'; // Utilisation du Nullsafe operator ?->
-
+            if ($t->nb_photo > 0) {
+                $t->url_photo = Photo::select("url_photo")
+                    ->where("id_annonce", "=", $t->id_annonce)
+                    ->first()->url_photo;
+            } else {
+                $t->url_photo = '/img/noimg.png';
+            }
             $t->nom_annonceur = Annonceur::select("nom_annonceur")
                 ->where("id_annonceur", "=", $t->id_annonceur)
-                ->first()?->nom_annonceur;
+                ->first()->nom_annonceur;
+            array_push($annonce, $t);
         }
-        $this->annonce = $tmp->all();
+        $this->annonce = $annonce;
     }
 
-    public function displayException(Environment $twig, array $menu, string $chemin, array $cat): never {
-        throw new \Exception('Cette méthode déclenche une exception.');
-    }
+	/**
+	 * @throws \Exception
+	 */
+	public function displayException($twig, $menu, $chemin, $cat) {
+		throw new \Exception('Cette méthode déclenche une exception.');
+	}
 }
