@@ -2,22 +2,27 @@
 
 namespace model;
 
-class Annonce extends \Illuminate\Database\Eloquent\Model {
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Annonce extends Model
+{
     protected $table = 'annonce';
     protected $primaryKey = 'id_annonce';
     public $timestamps = false;
-    public $links = null;
 
+    /** @var array|null */
+    public ?array $links = null; // Typage PHP 8 autorisé ici car c'est votre propriété
 
-    public function annonceur()
+    public function annonceur(): BelongsTo
     {
-        return $this->belongsTo('model\Annonceur', 'id_annonceur');
+        return $this->belongsTo(Annonceur::class, 'id_annonceur');
     }
 
-    public function photo()
+    public function photo(): HasMany
     {
-        return $this->hasMany('model\Photo', 'id_photo');
+        // Remplacement de 'id_photo' par 'id_annonce' qui est la clé étrangère dans la table photo
+        return $this->hasMany(Photo::class, 'id_annonce');
     }
-
 }
-?>
