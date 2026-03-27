@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"Tests\\Functional\\RacoinTest::testHomePageReturnsData":3.435,"Tests\\Functional\\RacoinTest::testConsulterAnnonce":0.136,"Tests\\Functional\\RacoinTest::testAjouterAnnonce":0.121}}
