@@ -46,8 +46,8 @@ class RacoinTest extends TestCase
         ];
 
         $chemin = '';
-        $cat = new \controller\getCategorie();
-        $dpt = new \controller\getDepartment();
+        $cat = new \controller\actions\getCategorie();
+        $dpt = new \controller\actions\getDepartment();
 
         // Route de la page d'accueil
         $this->app->get('/', function () use ($twig, $menu, $chemin, $cat) {
@@ -58,20 +58,20 @@ class RacoinTest extends TestCase
         // Route pour consulter une annonce
         $this->app->get('/item/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin, $cat) {
             $n = $arg['n'];
-            $item = new \controller\item();
+            $item = new \controller\actions\item();
             $item->afficherItem($twig, $menu, $chemin, $n, $cat->getCategories());
         });
 
         // Route pour afficher le formulaire d'ajout
         $this->app->get('/add', function () use ($twig, $menu, $chemin, $cat, $dpt) {
-            $ajout = new \controller\addItem();
+            $ajout = new \controller\actions\addItem();
             $ajout->addItemView($twig, $menu, $chemin, $cat->getCategories(), $dpt->getAllDepartments());
         });
 
         // Route pour ajouter une annonce
         $this->app->post('/add', function ($request) use ($twig, $menu, $chemin) {
             $allPostVars = $request->getParsedBody();
-            $ajout = new \controller\addItem();
+            $ajout = new \controller\actions\addItem();
             $ajout->addNewItem($twig, $menu, $chemin, $allPostVars);
         });
     }

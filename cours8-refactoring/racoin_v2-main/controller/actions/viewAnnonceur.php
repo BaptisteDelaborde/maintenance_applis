@@ -6,7 +6,7 @@
  * Time: 00:25
  */
 
-namespace controller;
+namespace controller\actions;
 use model\Annonce;
 use model\Annonceur;
 use model\Photo;

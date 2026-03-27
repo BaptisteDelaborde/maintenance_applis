@@ -1,10 +1,10 @@
 <?php
 
-namespace controller;
+namespace controller\tools;
 
 use model\ApiKey;
 
-class KeyGenerator {
+class keyGenerator {
 
     function show($twig, $menu, $chemin, $cat) {
         $template = $twig->load("key-generator.html.twig");
