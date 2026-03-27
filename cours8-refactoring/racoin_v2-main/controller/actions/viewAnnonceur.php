@@ -12,9 +12,6 @@ class viewAnnonceur
     /** @var Annonceur|null */
     protected ?Annonceur $annonceur = null;
 
-    /**
-     * Affiche le profil d'un annonceur et ses annonces
-     */
     public function afficherAnnonceur(Environment $twig, array $menu, string $chemin, int|string $n, array $cat): void
     {
         $this->annonceur = Annonceur::find($n);

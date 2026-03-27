@@ -33,9 +33,7 @@ class search
         ]);
     }
 
-    /**
-     * Traite les résultats de la recherche
-     */
+
     public function research(array $array, Environment $twig, array $menu, string $chemin, array $cat): void
     {
         $template = $twig->load("index.html.twig");
@@ -51,27 +49,23 @@ class search
             ]
         ];
 
-        // Récupération sécurisée des données via l'opérateur de coalescence nulle
         $motclef    = str_replace(' ', '', $array['motclef'] ?? '');
         $codePostal = str_replace(' ', '', $array['codepostal'] ?? '');
         $categorie  = $array['categorie'] ?? '';
         $prixMin    = $array['prix-min'] ?? 'Min';
         $prixMax    = $array['prix-max'] ?? 'Max';
 
-        // Initialisation du Query Builder
         $query = Annonce::query();
 
-        // Ajout dynamique des clauses WHERE en fonction des filtres renseignés
         if ($motclef !== "") {
             $query->where('description', 'like', '%' . $array['motclef'] . '%');
         }
 
         if ($codePostal !== "") {
-            $query->where('ville', '=', $array['codepostal']); // (Note: d'après le code d'origine, le CP est stocké dans ville)
+            $query->where('ville', '=', $array['codepostal']); 
         }
 
         if ($categorie !== "Toutes catégories" && $categorie !== "-----" && $categorie !== "") {
-            // Vérification de l'existence de la catégorie avec le Nullsafe operator
             $categId = Categorie::find($categorie)?->id_categorie;
             if ($categId !== null) {
                 $query->where('id_categorie', '=', $categId);
@@ -86,7 +80,6 @@ class search
             $query->where('prix', '<=', (float) $prixMax);
         }
 
-        // Exécution de la requête
         $annonces = $query->get();
 
         echo $template->render([

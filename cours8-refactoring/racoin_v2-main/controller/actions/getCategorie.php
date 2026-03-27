@@ -16,17 +16,12 @@ class getCategorie
     /** @var array<Annonce> */
     protected array $annonce = [];
 
-    /**
-     * Récupère toutes les catégories sous forme de tableau
-     */
+
     public function getCategories(): array
     {
         return Categorie::orderBy('nom_categorie')->get()->toArray();
     }
 
-    /**
-     * Récupère le contenu (les annonces) d'une catégorie spécifique
-     */
     public function getCategorieContent(string $chemin, int|string $n): void
     {
         $tmp = Annonce::with("Annonceur")
@@ -53,9 +48,6 @@ class getCategorie
         $this->annonce = $annonce;
     }
 
-    /**
-     * Affiche la vue d'une catégorie avec ses annonces
-     */
     public function displayCategorie(Environment $twig, array $menu, string $chemin, array $cat, int|string $n): void
     {
         $template = $twig->load("index.html.twig");

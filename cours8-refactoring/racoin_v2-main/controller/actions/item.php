@@ -102,11 +102,11 @@ class item
         }
 
         $reponse = false;
-        $pass    = $_POST["pass"] ?? ''; // Coalescence nulle pour éviter le warning
+        $pass    = $_POST["pass"] ?? '';
 
         if ($pass !== '' && password_verify($pass, $this->annonce->mdp)) {
             $reponse = true;
-            Photo::where('id_annonce', '=', $n)->delete(); // Utilisation d'une majuscule pour la classe Photo
+            Photo::where('id_annonce', '=', $n)->delete();
             $this->annonce->delete();
         }
 
@@ -183,7 +183,6 @@ class item
     {
         date_default_timezone_set('Europe/Paris');
 
-        // Récupération sécurisée via le tableau envoyé par Slim au lieu de $_POST
         $nom         = trim($allPostVars['nom'] ?? '');
         $email       = trim($allPostVars['email'] ?? '');
         $phone       = trim($allPostVars['phone'] ?? '');
@@ -249,7 +248,6 @@ class item
             $this->annonce->id_categorie   = (int) $categorie;
             $this->annonce->date           = date('Y-m-d');
 
-            // On ne met à jour le mot de passe que s'il a été renseigné
             if ($password !== '') {
                 $this->annonce->mdp = password_hash($password, PASSWORD_DEFAULT);
             }
