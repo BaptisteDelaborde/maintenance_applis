@@ -1,10 +1,10 @@
 <?php
 require 'vendor/autoload.php';
 
-use controller\getCategorie;
-use controller\getDepartment;
+use controller\actions\getCategorie;
+use controller\actions\getDepartment;
 use controller\index;
-use controller\item;
+use controller\actions\item;
 use db\connection;
 
 use model\Annonce;
@@ -16,16 +16,46 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 connection::createConn();
 
-// Initialisation de Slim
 $app = new App([
     'settings' => [
         'displayErrorDetails' => true,
     ],
 ]);
+
+$logger = new Logger('racoin_log');
+
+$logger->pushHandler(new StreamHandler(__DIR__ . '/logs/app.log', Logger::DEBUG));
+
+$container = $app->getContainer();
+
+$container['errorHandler'] = function ($c) use ($logger) {
+    return function ($request, $response, $exception) use ($c, $logger) {
+
+        $logger->error("Exception interceptée : " . $exception->getMessage(), [
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine()
+        ]);
+
+        // On laisse Slim afficher la page d'erreur par défaut
+        $handler = new \Slim\Handlers\Error($c->get('settings')['displayErrorDetails']);
+        return $handler($request, $response, $exception);
+    };
+};
+
+$app->add(function (Request $request, Response $response, $next) use ($logger) {
+    $method = $request->getMethod();
+    $path = $request->getUri()->getPath();
+
+    // Log de la requête entrante au niveau INFO
+    $logger->info("Requête HTTP : {$method} {$path}");
+
+    return $next($request, $response);
+});
 
 // Initialisation de Twig
 $loader = new FilesystemLoader(__DIR__ . '/template');
@@ -72,14 +102,16 @@ $chemin = dirname($_SERVER['SCRIPT_NAME']);
 $cat = new getCategorie();
 $dpt = new getDepartment();
 
-$app->get('/', function () use ($twig, $menu, $chemin, $cat) {
+$app->get('/', function () use ($twig, $menu, $chemin, $cat, $logger) {
     $index = new index();
+    $logger->log('debug', 'Affichage de la page d\'accueil');
     $index->displayAllAnnonce($twig, $menu, $chemin, $cat->getCategories());
 });
 
-$app->get('/exception', function ($request,$response) use ($twig, $menu, $chemin, $cat) {
-	$index = new index();
-	$index->displayException($twig, $menu, $chemin, $cat->getCategories());
+$app->get('/exception', function ($request,$response) use ($twig, $menu, $chemin, $cat, $logger) {
+    $index = new index();
+    $logger->log('debug', 'Affichage de la page d\'exception');
+    $index->displayException($twig, $menu, $chemin, $cat->getCategories());
 });
 
 $app->get('/item/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin, $cat) {
@@ -111,7 +143,7 @@ $app->post('/item/{id}/edit', function ($request, $response, $arg) use ($twig, $
     $item->modifyPost($twig, $menu, $chemin, $id, $allPostVars, $cat->getCategories(), $dpt->getAllDepartments());
 });
 
-$app->map(['GET, POST'], '/item/{id}/confirm', function ($request, $response, $arg) use ($twig, $app, $menu, $chemin) {
+$app->map(['GET', 'POST'], '/item/{id}/confirm', function ($request, $response, $arg) use ($twig, $app, $menu, $chemin) {
     $id   = $arg['id'];
     $allPostVars = $request->getParsedBody();
     $item        = new item();
